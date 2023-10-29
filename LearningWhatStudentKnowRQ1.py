@@ -76,7 +76,7 @@ def zeoshot(p):
       messages=[
         {"role": "system", "content": "You are a binary classifier."},
         {"role": "user", "content": schema1+ instruction1},
-        {"role": "assistant", "content": "Sure, please enter the response from teacher"},
+        {"role": "assistant", "content": "Sure, please enter the response from tutor"},
         {"role": "user", "content": p}
           ], 
       max_tokens=1
@@ -93,7 +93,7 @@ def fewshot(p):
         {"role": "user", "content": schema1+ instruction1},
         {"role": "assistant", "content": "please provide some examples of correct and incorrect response"},
         {"role": "user", "content": example_correct +example_incorrect },
-        {"role": "assistant", "content": "Sure, please enter the response from teacher"},
+        {"role": "assistant", "content": "Sure, please enter the response from tutor"},
         {"role": "user", "content": p}
           ], 
       max_tokens=1
