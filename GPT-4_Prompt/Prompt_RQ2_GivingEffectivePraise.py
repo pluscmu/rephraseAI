@@ -75,7 +75,10 @@ Rephrased Response: Carla, you are doing a great job in continuing on the assign
 
 
 
-instruction = lesson_principle + "The provided response attempts to answer to the following scenario." + senario + "\n Please rephrase the tutor's response according to the principle mentioned above to create a better example of" + lesson_Name + "Retain words and ideas from the tutor’s response. Limit changes to the original tutor's response to a minimum.   Maintain the same length as the original tutor's response.    Please rephrase as less words as possible from the original tutor's response.    Highest priority is to make sure to follow the principle of the correct response when rephrasing."
+instruction = lesson_principle + 
+"The provided response attempts to answer to the following scenario." + senario + 
+"\n Please rephrase the tutor's response according to the principle mentioned above to create a better example of" + 
+lesson_Name + "Retain words and ideas from the tutor’s response. Limit changes to the original tutor's response to a minimum.   Maintain the same length as the original tutor's response.    Please rephrase as less words as possible from the original tutor's response.    Highest priority is to make sure to follow the principle of the correct response when rephrasing."
 
 def rq2zeroshot(inputresponse):
     res = openai.ChatCompletion.create(
@@ -99,7 +102,7 @@ def rq2fewshot(inputresponse):
         messages=[
             {"role": "system", "content": systemheader},
             {"role": "user", "content": instruction},
-            {"role": "assistant", "content": "Please provide some examples of how you will re-write the given incorrect response to make it correct"},
+            {"role": "assistant", "content": "Please provide some examples of how you will rephrase the given incorrect response to make it correct"},
             {"role": "user", "content":examples_paraphrase},
             {"role": "assistant", "content": "Sure, please enter the tutor's response you would like to rephrase"},
             {"role": "user", "content": inputresponse}

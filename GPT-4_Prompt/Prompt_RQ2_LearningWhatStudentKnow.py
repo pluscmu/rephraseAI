@@ -100,7 +100,7 @@ def rq2fewshot(inputresponse):
         messages=[
             {"role": "system", "content": systemheader},
             {"role": "user", "content": instruction},
-            {"role": "assistant", "content": "Please provide some examples of how you will re-write the given incorrect response to make it correct"},
+            {"role": "assistant", "content": "Please provide some examples of how you will rephrase the given incorrect response to make it correct"},
             {"role": "user", "content":examples_paraphrase},
             {"role": "assistant", "content": "Sure, please enter the tutor's response you would like to rephrase"},
             {"role": "user", "content": inputresponse}

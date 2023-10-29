@@ -18,41 +18,18 @@ import openai
 inputresponse = "any Wrong Response"
 
 
-# ########################################
-# Step 1: Classifier to determine if the response if correct or incorrect
-############################################
-
-
-example_incorrect = """
-Examples of Corrected Responses:
-
-1. Let's try solving the problem together.
-2. Good effort.
-3. I got a different answer. Let's look at this together.
-4. Do you know about carrying the 1?
-5. Kanye, let me show you how this should be done.
-"""
-
-
-example_correct = """
-Examples of Corrected Responses:
-
-1. Lucy, great start! Explain how you passed to the second column.
-2. Thank you for showing me your work, Lucy. You worked hard on adding these numbers. I am going to work on this problem with you. Can you tell me how you added the numbers first?
-3. Well done setting up the problem, Lucy. Can you tell me how you went about calculating the first few steps?
-4. I like your effort, but show me what you are trying to do in the second step.
-5. Kanye, very well done. Your effort was very valuable. Can you repeat how you arrived at this result? Let's do this problem together.
-"""
+# ############################
+# Step 2: Paraphrase with GPT4
+# ###########################
 
 
 
-instruction1 = """
-Please determine according to the classifier schema, if the following 
-response contains the correct reaction to the student's error? If it does, 
-please respond YES; if it does not, please respond NO.
-"""
+systemheader = "You are rephrasing tutor's response."
 
-schema1 = """"
+
+
+lesson_principle = """
+
 The following is the principle that a correct response should follow:
 
 Effective tutoring responses on reacting to student errors should be:
@@ -65,41 +42,75 @@ Express the sense of working together towards the joint goal might be helpful to
 """
 
 
-def zeroshot(p):
+
+
+lesson_Name = "Reacting to Error"
+
+
+
+senario = """
+
+The scenario is: Imagine you are a tutor to a student, Aaron, who has a long history of struggling with math. Aaron is not particularly motivated to learn math. He just finished a math problem adding a 3-digit and 2-digit number and has made a common mistake (shown below).
+What exactly would you say to Aaron regarding his mistake to effectively respond in a way that increases his motivation to learn?
+"""
+
+
+
+examples_paraphrase = """
+First Example:
+Incorrect Response: I appreciate your effort, but your answer is wrong. Can you tell me what you did first?
+Rephrased Response: I appreciate your effort. Let's try solving the problem together. Can you tell me what you did first?
+
+Second Example:
+Incorrect Response: Hi Carl, go ahead and finish working on the problem. You have made an error on the first step.
+Rephrased Response: Hi Carl, I like how hard and focused you are working on this problem. Please explain to me how you approached the first step.
+"""
+
+
+
+instruction = lesson_principle + "The provided response attempts to answer to the following scenario." + senario + "\n Please rephrase the tutor's response according to the principle mentioned above to create a better example of" + lesson_Name + "Retain words and ideas from the tutor’s response. Limit changes to the original tutor's response to a minimum.   Maintain the same length as the original tutor's response.    Please rephrase as less words as possible from the original tutor's response.    Highest priority is to make sure to follow the principle of the correct response when rephrasing.    If the response does not answer the senario question, please return 'Your Answer Does Not Make Sense'."
+
+def rq2zeroshot(inputresponse):
     res = openai.ChatCompletion.create(
-      model="gpt-4",
-      messages=[
-        {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
-        {"role": "assistant", "content": "Sure, please enter the response from tutor"},
-        {"role": "user", "content": p}
-          ], 
-      max_tokens=1
-    )
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": systemheader},
+            {"role": "user", "content": instruction},
+            {"role": "assistant", "content": "Sure, please enter the tutor's response you would like to rephrase"},
+            {"role": "user", "content": inputresponse}
+                ], 
+            temperature = 0
+        )
+    
+    return res['choices'][0]['message']['content']
+
+def rq2fewshot(inputresponse):
+    res = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": systemheader},
+            {"role": "user", "content": instruction},
+            {"role": "assistant", "content": "Please provide some examples of how you will rephrase the given incorrect response to make it correct"},
+            {"role": "user", "content":examples_paraphrase},
+            {"role": "assistant", "content": "Sure, please enter the tutor's response you would like to rephrase"},
+            {"role": "user", "content": inputresponse}
+                ], 
+            temperature = 0
+        )
     
     return res['choices'][0]['message']['content']
 
 
-def fewshot(p):
-    res = openai.ChatCompletion.create(
-      model="gpt-4",
-      messages=[
-        {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
-        {"role": "assistant", "content": "please provide some examples of correct and incorrect response"},
-        {"role": "user", "content": example_correct +example_incorrect },
-        {"role": "assistant", "content": "Sure, please enter the response from tutor"},
-        {"role": "user", "content": p}
-          ], 
-      max_tokens=1
-    )
-    
-    return res['choices'][0]['message']['content']
 
-
-classify1 = fewshot(inputresponse)
+rq2fewshot(inputresponse)
 
 
 
-classify1
+classify2 = rq2fewshot(newresponse)
+
+
+
+classify2
+
+
 
