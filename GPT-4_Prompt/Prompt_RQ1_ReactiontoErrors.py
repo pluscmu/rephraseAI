@@ -52,7 +52,7 @@ response contains the correct reaction to the student's error? If it does,
 please respond YES; if it does not, please respond NO.
 """
 
-schema1 = """"
+principle = """"
 The following is the principle that a correct response should follow:
 
 Effective tutoring responses on reacting to student errors should be:
@@ -69,7 +69,7 @@ def zeroshot(p):
       model="gpt-4",
       messages=[
         {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
+        {"role": "user", "content": principle+ instruction1},
         {"role": "assistant", "content": "Sure, please enter the response from tutor"},
         {"role": "user", "content": p}
           ], 
@@ -86,7 +86,7 @@ def fewshot(p):
       model="gpt-4",
       messages=[
         {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
+        {"role": "user", "content": principle+ instruction1},
         {"role": "assistant", "content": "please provide some examples of correct and incorrect response"},
         {"role": "user", "content": example_correct +example_incorrect },
         {"role": "assistant", "content": "Sure, please enter the response from tutor"},

@@ -52,7 +52,7 @@ Please determine according to the training lesson principle, if the following re
 """
 
 
-schema1 = """
+principle = """
 
 The following is the principle that a correct response should follow: 
 
@@ -75,7 +75,7 @@ def zeoshot(p):
       model="gpt-4",
       messages=[
         {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
+        {"role": "user", "content": principle+ instruction1},
         {"role": "assistant", "content": "Sure, please enter the response from tutor"},
         {"role": "user", "content": p}
           ], 
@@ -90,7 +90,7 @@ def fewshot(p):
       model="gpt-4",
       messages=[
         {"role": "system", "content": "You are a binary classifier."},
-        {"role": "user", "content": schema1+ instruction1},
+        {"role": "user", "content": principle+ instruction1},
         {"role": "assistant", "content": "please provide some examples of correct and incorrect response"},
         {"role": "user", "content": example_correct +example_incorrect },
         {"role": "assistant", "content": "Sure, please enter the response from tutor"},
