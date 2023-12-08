@@ -26,14 +26,19 @@ inputresponse = "any Wrong Response"
 example_incorrect = """
 Examples of Incorrected Responses:
 1. You got it! There are many ways to solve math problems and learn math. Now that we have connected, let's solve some more problems.
-2. You can do this! Just take it one step at a time.
+2. Good Job.
+3. I would say she is doing well and let us explore a bit more.
+4. I think you are doing great.
+5. You can do this! Just take it one step at a time.
 """
 
 example_correct = """
-Examples of Corrected Responses:
-
-1. Kevin, you didn't give up, and you managed to learn. Congratulations! Let's finish your math homework together so you can still get a good grade and learn how this kind of homework will be easier sooner.
-2. You're doing a great job working on this paragraph! It can be tricky to find the right words, and I think you're doing really well working through it.
+Examples of correct responses are shown as below: 
+1. Kevin, you didn't give up and you managed to learn, congratulations! Let's finish your math homework together so you can still get a good grade and learn how this kind of homework will be easier sooner.
+2. Keep Working
+3. Great job Kevin! You are on the right track, keep working on the problem, you get it!
+4. Kevin, that was awesome the way you kept at it and were able to get to the correct answer. You should be proud. Keep up the great work!
+5. You're doing a great job working on this paragraph! It can be tricky to find the right words and I think you're doing really well working through it.
 """
 
 instruction1 = """According to the lesson principle, please determine if the following response contains praising for learning effort. If the following response contains praising for learning effort, please respond YES; if not, please respond NO."""
