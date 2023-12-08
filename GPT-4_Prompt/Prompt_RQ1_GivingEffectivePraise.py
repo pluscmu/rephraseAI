@@ -24,7 +24,7 @@ inputresponse = "any Wrong Response"
 ############################################
 
 example_incorrect = """
-Examples of Corrected Responses:
+Examples of Incorrected Responses:
 1. You got it! There are many ways to solve math problems and learn math. Now that we have connected, let's solve some more problems.
 2. You can do this! Just take it one step at a time.
 """

@@ -24,7 +24,7 @@ inputresponse = "any Wrong Response"
 
 
 example_incorrect = """
-Examples of Corrected Responses:
+Examples of Incorrected Responses:
 
 1. Let's try solving the problem together.
 2. Good effort.
